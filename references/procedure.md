@@ -29,7 +29,7 @@ Write `manager-analysis.md` before any dispatch. Sections: what happened (number
 1. The manager decides. It may overrule the reconciliation, but must say why in one sentence, against the evidence.
 2. Implement the one change. Run whatever lint or test owns that file. Run any blocking machine check the audit exposed on every candidate, including the incumbent.
 3. Archive the whole folder to `<workspace>/audits/<date>-<slug>/`.
-4. Write one `feedback_*` memory only if the lesson will recur; link it from MEMORY.md.
+4. Write one line in your lessons or rules file only if the lesson will recur.
 5. Report to the user in BLUF: root cause in one sentence, where the three agreed, the one change now live, the candidate slate if there is one, and the honest answer on whether to trust the process again and on what condition.
 
 ## Audit

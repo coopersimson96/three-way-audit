@@ -5,7 +5,7 @@ description: >-
 license: MIT
 metadata:
   author: Cooper Simson
-  version: 1.0.0
+  version: 1.0.1
   source: https://github.com/coopersimson96/three-way-audit
 ---
 
@@ -26,9 +26,10 @@ Three blind analyses beat one apology. The manager's view is sealed before any w
 Skill-specific, all blocking:
 
 - Stage 1 file exists with a timestamp earlier than both Stage 2 dispatches, or the audit is void.
+- The evidence pack is copied in, made read-only, and fingerprinted (`pack.sha256`) before any dispatch; a failed `shasum -c` after a round voids that round.
 - Workers run read-only outside the audit folder, no network, no secrets; their reports must carry sections A to E or the result is a fail.
 - Round one goes to Sol and Astra with the identical brief; the reconciliation goes to Astra with all three reports.
-- Exactly one process change ships, under 15 lines, into the file that already owns that step; no new rule files.
+- Exactly one process change ships, under 15 lines, into the file that already owns that step; no new rule files. It is shown to the user as a diff and written only after an explicit yes; otherwise it is saved as `proposed-change.md` and nothing outside the audit folder changes.
 - The audit folder is archived under the owning workspace's `audits/<date>-<slug>/`.
 
 ## What to load / do NOT load

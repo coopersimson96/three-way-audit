@@ -14,7 +14,7 @@ The output is concrete: three root-cause reports, one reconciliation that tests 
 
 ### Stage 0: scope and evidence pack
 
-State the failure in one sentence, freeze what cannot change, and put the shipped deliverable, every attempt, the governing rules, relevant data, and unused facts into one read-only evidence pack. Missing facts are named instead of inferred.
+State the failure in one sentence, freeze what cannot change, and put the shipped deliverable, every attempt, the governing rules, relevant data, and unused facts into one read-only evidence pack. Missing facts are named instead of inferred. The pack is copied in, made read-only, and fingerprinted with `shasum` so no model can change the evidence it is judging.
 
 ### Stage 1: sealed manager analysis
 
@@ -30,7 +30,7 @@ Astra then reads all three analyses. It states their common ground, rules on eve
 
 ### Stage 4: manager verdict and the one change
 
-The manager decides, implements exactly one change under 15 lines in the file that already owns the failed step, runs that file's lint or test, archives the receipts, and reports the result in BLUF. If an existing rule was skipped, the change fixes when that rule runs instead of adding another rule.
+The manager decides, shows you the one change as a diff and waits for your yes, then implements it under 15 lines in the file that already owns the failed step, runs that file's lint or test, archives the receipts, and reports the result in BLUF. If an existing rule was skipped, the change fixes when that rule runs instead of adding another rule.
 
 | Check | Pass condition |
 |---|---|
@@ -40,6 +40,8 @@ The manager decides, implements exactly one change under 15 lines in the file th
 | Grounded | Every performance number traces to a file in the pack |
 | One change | Exactly one insert, under 15 lines, in the owning file, lint clean |
 | Receipts | Any machine check named by the audit was actually run and its output kept |
+| Untouched | `shasum -a 256 -c pack.sha256` passes after every round |
+| Consented | The one change was shown as a diff and approved before any file outside the audit folder was written |
 | Archived | Folder copied under `audits/` before the report to the user |
 
 ## What you need
@@ -102,6 +104,13 @@ existing hook step and blocks shape selection until a supportable claim is named
 Honest answer: Trust the process again only when the next run produces the
 claim and its receipt before a hook shape. If that artifact is missing, stop.
 ```
+
+## What it will and will not touch
+
+- Reads: the files you hand it, copied into the audit folder.
+- Writes during the audit: only inside that folder (reports, briefs, logs).
+- Writes after the audit: one change, in one file you already own, only after you approve the diff. Decline and the proposal is saved to `proposed-change.md` instead.
+- Never: network calls from the workers, secrets, edits to the deliverable itself.
 
 ## Gotchas
 

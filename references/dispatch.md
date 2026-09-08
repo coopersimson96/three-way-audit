@@ -1,6 +1,6 @@
 # Dispatch commands for the three-way audit
 
-`S` is the audit scratch folder. `SKILL_DIR` is the three-way-audit skill folder. Every dispatch: `</dev/null`, `--skip-git-repo-check` (scratch is not a repo), `nohup` with a log, workspace-write so the worker can write only its report inside `S`.
+`S` is the audit scratch folder. `SKILL_DIR` is the three-way-audit skill folder. Every dispatch: `</dev/null`, `--skip-git-repo-check` (scratch is not a repo), `nohup` with a log, workspace-write so the worker can write only its report inside `S`. The pack files are `chmod a-w` and fingerprinted in `pack.sha256` before any dispatch; verify with `shasum -a 256 -c "$S/pack.sha256"` after every round.
 
 ## Round one, both in parallel
 

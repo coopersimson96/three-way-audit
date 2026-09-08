@@ -1,0 +1,4 @@
+.three-way-audit/
+.audit-scratch/
+scratchpad/
+*.log

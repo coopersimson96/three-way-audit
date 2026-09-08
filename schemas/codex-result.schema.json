@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["pass", "fail", "blocked"]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "files_changed": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "verification_run": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "open_issues": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "required": ["status", "summary", "files_changed", "verification_run", "open_issues"],
+  "additionalProperties": false
+}
